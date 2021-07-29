@@ -43,8 +43,9 @@ export default {
     },
     created() {
         this.$axios.get('/sanctum/csrf-cookie').then(response => {
-            this.$axios.get('/api/books')
+            this.$axios.get('/api/questions')
                 .then(response => {
+                    console.log(response.data);
                     this.books = response.data;
                 })
                 .catch(function (error) {

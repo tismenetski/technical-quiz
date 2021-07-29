@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\API;
 
-use Session;
+use Illuminate\Support\Facades\Session;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;

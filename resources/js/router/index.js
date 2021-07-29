@@ -9,6 +9,11 @@ import Dashboard from '../pages/Dashboard';
 import Books from '../components/Books';
 import AddBook from '../components/AddBook';
 import EditBook from '../components/EditBook';
+import UnAnsweredQuestions from '../pages/Questions/UnAnsweredQuestions';
+import AnsweredQuestions from "../pages/Questions/AnsweredQuestions";
+import Questions from "../pages/Questions/Questions";
+import QuestionsByCategory from "../pages/Questions/QuestionsByCategory";
+import NewQuestionaireSetup from "../pages/Questions/NewQuestionaireSetup";
 
 export const routes = [
     {
@@ -50,6 +55,31 @@ export const routes = [
         name: 'editbook',
         path: '/books/edit/:id',
         component: EditBook
+    },
+    {
+        name: 'questions',
+        path : '/questions',
+        component: Questions
+    },
+    {
+      name: 'unansweredquestions',
+      path : '/questions/unansweredquestions',
+      component: UnAnsweredQuestions
+    },
+    {
+        name: 'answeredquestions',
+        path : '/questions/answeredquestions',
+        component: AnsweredQuestions
+    },
+    {
+        name: 'questionsByCategory',
+        path : '/questions/questionsByCategory',
+        component: QuestionsByCategory
+    },
+    {
+        name: 'newQuestionaire',
+        path : '/questions/newQuestionaire',
+        component: NewQuestionaireSetup
     },
 ];
 
