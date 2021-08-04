@@ -5,5 +5,8 @@ export default {
     },
     getCurrentQuestionaire(state) {
         return state.currentQuestionaire;
+    },
+    getCurrentQuestionaireExists(state) {
+        return state.currentQuestionaireExists;
     }
 }

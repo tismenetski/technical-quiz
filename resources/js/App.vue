@@ -27,7 +27,23 @@
 <!--        <router-view/>-->
 <!--    </div>-->
     <el-container>
-        <el-aside>Aside</el-aside>
+        <el-aside>
+            <el-menu
+                default-active="2"
+                class="el-menu-vertical-demo"
+                @open="handleOpen"
+                @close="handleClose"
+                background-color="#D3DCE6"
+                text-color="#000"
+                active-text-color="#2098d1">
+
+
+
+                        <el-menu-item index="1-1"><i class="el-icon-setting"></i> <router-link to="/questions/newQuestionaire">Create New Questionnaire</router-link>  </el-menu-item>
+                        <el-menu-item index="1-2">Answered Questions</el-menu-item>
+
+            </el-menu>
+        </el-aside>
         <el-container>
             <el-header>
                         <nav class="navbar navbar-expand-lg navbar-light bg-light">
@@ -87,6 +103,12 @@ export default {
                         console.error(error);
                     });
             })
+        },
+        handleOpen(key, keyPath) {
+            console.log(key, keyPath);
+        },
+        handleClose(key, keyPath) {
+            console.log(key, keyPath);
         }
     },
 }
@@ -99,11 +121,15 @@ nav {
     height: 60px;
 }
 
+a {
+    text-decoration: none;
+}
+
 .el-header, .el-footer {
     background-color: #B3C0D1;
     color: #333;
     text-align: center;
-    /*line-height: 60px;*/
+    line-height: 60px;
 }
 
 .el-header {
@@ -111,17 +137,25 @@ nav {
 }
 
 .el-aside {
+
     background-color: #D3DCE6;
     color: #333;
     text-align: center;
-    /*line-height: 200px;*/
+    line-height: 200px;
+    height: 100vh;
+}
+
+.el-menu {
+    background-color: #D3DCE6;
+    margin-top: 60px;
+    color: #333;
 }
 
 .el-main {
     background-color: #E9EEF3;
     color: #333;
     text-align: center;
-    /*line-height: 160px;*/
+    line-height: 160px;
 }
 
 body > .el-container {
@@ -130,10 +164,10 @@ body > .el-container {
 
 .el-container:nth-child(5) .el-aside,
 .el-container:nth-child(6) .el-aside {
-    /*line-height: 260px;*/
+    line-height: 260px;
 }
 
 .el-container:nth-child(7) .el-aside {
-    /*line-height: 320px;*/
+    line-height: 320px;
 }
 </style>

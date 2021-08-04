@@ -26,7 +26,7 @@
         <el-step title="Step 2"></el-step>
     </el-steps>
 
-    <el-button style="margin-top: 12px;" @click="next" :disabled="done || checkedCategories<1 ||(active===1 && checkedDifficulties<1)">Next step</el-button>
+    <el-button style="margin-top: 12px;" @click="next" :disabled="done || (checkedCategories.length<1 ||(active===1 && checkedDifficulties.length<1))">Next Step</el-button>
 </template>
 
 <script>
@@ -36,13 +36,12 @@ export default {
     data() {
         return {
             active: 0,
-            done : false,
+            done: false,
             checkAll: false,
             checkedCategories: [],
-            categories : categoryOptions,
-            cities: categoryOptions,
-            checkedDifficulties : [],
-            difficulties : difficultyOptions,
+            categories: categoryOptions,
+            checkedDifficulties: [],
+            difficulties: difficultyOptions,
             isIndeterminate: true
         };
     },
@@ -50,7 +49,14 @@ export default {
     methods: {
         next() {
             // if (this.active++ > 2) this.active = 0;
-            if (this.active++ > 1) this.done = true;
+            console.log('printing this.active Before Change : ' + this.active);
+            this.active++;
+            if (this.active === 3) {
+
+                this.done = true;
+                this.createQuestionaire();
+            }
+            console.log('printing this.active After Change : ' + this.active);
         },
         handleCheckAllChangeCategory(val) {
             this.checkedCities = val ? categoryOptions : [];
@@ -58,8 +64,8 @@ export default {
         },
         handleCheckedCategoriesChange(value) {
             let checkedCount = value.length;
-            this.checkAll = checkedCount === this.cities.length;
-            this.isIndeterminate = checkedCount > 0 && checkedCount < this.cities.length;
+            this.checkAll = checkedCount === this.categories.length;
+            this.isIndeterminate = checkedCount > 0 && checkedCount < this.categories.length;
         },
         handleCheckAllChangeDifficulty(val) {
             this.checkedDifficulties = val ? difficultyOptions : [];
@@ -73,23 +79,32 @@ export default {
 
         // Call to store to create a request to the back-end to bring questions by the desired categories and difficulty level ->
         // this need to be stored in the store in an object
-        createQuestionaire() {
-
-            data = {
-                difficulty : this.checkedDifficulties,
-                categories : this.checkedCategories
+        async createQuestionaire() {
+            console.log('createQuestionaire Method in NewQuestionaireSetup Component');
+            const data = {
+                difficulties: this.checkedDifficulties,
+                categories: this.checkedCategories
             }
+
 
             try {
+           await  this.$store.dispatch('questions/getNewQuestionaire', data);
+           console.log('Finished loading questions/getNewQuestionaire');
 
-
-            }catch (e) {
+            } catch (e) {
                 console.log(e);
             }
-        }
+             this.$router.replace('/questionnaire');
 
+
+        },
+        // computed: {
+        //     buttonText() {
+        //         return this.active < 2 ? 'Next Step' : 'Finish';
+        //     }
+        // }
     },
-    created() {
+    watch : {
 
     }
 }

@@ -5,8 +5,8 @@ import questionsModule from './questions/index'
 const store = createStore({
 
     modules: {
-        authModule,
-        questionsModule
+        auth:authModule,
+        questions: questionsModule
     }
 })
 

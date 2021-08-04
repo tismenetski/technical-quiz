@@ -1,7 +1,19 @@
-export default {
-    state : {
-            currentQuestionaire : [],
-            questions : [],
+import mutations from './mutations.js';
+import getters from './getters.js';
+import actions from './actions.js';
 
-    }
+export default {
+    namespaced : true,
+    state()  {
+           return {
+               currentQuestionaire : [],
+               currentQuestionaireExists : false,
+               questions : [],
+               loading : false,
+               errors : null,
+           }
+    },
+    mutations,
+    actions,
+    getters,
 }

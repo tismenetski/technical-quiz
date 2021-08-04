@@ -58,14 +58,20 @@ class QuestionsController extends Controller
     }
 
     public function createNewQuestionnaire(Request $request) {
-
+        Log::info('createNewQuestionnaire Endpoint!');
+//        Log::info($request->get('difficulties'));
+//        Log::info($request->get('categories'));
+        Log::info($request->get('data'));
+//        dd(
+//            'END'
+//        );
         $difficulties = $request->get('difficulties');
         $categories = $request->get('categories');
         //todo make a field for number of questions so that it can also be dynamic
 
         //todo make a field for answered or not answered or both so that it can also be dynamic
 
-        $questions = Question::whereIn('difficulty',$difficulties)->whereIn('category_id',$categories)->get();
+        $questions = Question::whereIn('difficulty',$difficulties)->whereIn('category',$categories)->get();
 
         return response(['data' => $questions , 'message' =>'Serving A New Questionnaire'],200);
     }

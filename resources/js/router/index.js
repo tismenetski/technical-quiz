@@ -14,6 +14,7 @@ import AnsweredQuestions from "../pages/Questions/AnsweredQuestions";
 import Questions from "../pages/Questions/Questions";
 import QuestionsByCategory from "../pages/Questions/QuestionsByCategory";
 import NewQuestionaireSetup from "../pages/Questions/NewQuestionaireSetup";
+import Questionnaire from "../pages/Questions/Questionnaire";
 
 export const routes = [
     {
@@ -81,6 +82,11 @@ export const routes = [
         path : '/questions/newQuestionaire',
         component: NewQuestionaireSetup
     },
+    {
+        name : 'questionnaire',
+        path : '/questionnaire',
+        component:  Questionnaire
+    }
 ];
 
 const router = createRouter({
