@@ -117,6 +117,10 @@ export default {
 
 <style>
 
+#app {
+    font-family: Roboto, Helvetica, Arial, sans-serif;
+}
+
 nav {
     height: 60px;
 }

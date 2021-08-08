@@ -12,17 +12,14 @@ export default {
          const response = await axios.post('/api/questions/createNewQuestionnaire',data);
                  console.log(response.data);
                  context.commit('setNewQuestionnaire',response.data);
-        // axios.get('/sanctum/csrf-cookie').then(response => {
-            // axios.post('/api/questions/createNewQuestionnaire',data)
-            //     .then(response => {
-            //         console.log(response.data);
-            //         context.commit('setNewQuestionnaire',response.data);
-            //     })
-            //     .catch(function (error) {
-            //         console.error(error);
-            //     });
-        // })
+    },
+    async answerQuestion(context,data) {
 
-
+        console.log('answerQuestion Endpoint on frontend');
+        console.log(data);
+        await axios.get('/sanctum/csrf-cookie');
+        const response = await axios.post('/api/questions/answerQuestion',data);
+        console.log(response.data);
+        context.commit('setAnsweredQuestions',response.data);
     }
 }

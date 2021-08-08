@@ -28,6 +28,7 @@ Route::group(['prefix' => 'questions', 'middleware' => 'auth:sanctum'], function
     Route::get('/answeredQuestions', [QuestionsController::class, 'answeredQuestions']);
     Route::get('/questionsByCategory', [QuestionsController::class, 'questionsByCategory']);
     Route::post('/createNewQuestionnaire', [QuestionsController::class, 'createNewQuestionnaire']);
+    Route::post('/answerQuestion', [QuestionsController::class, 'answerQuestion']);
 
 
 });

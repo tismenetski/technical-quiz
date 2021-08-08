@@ -12,6 +12,15 @@ class UserAnswer extends Model
 
     protected $table = 'Users_Answers';
 
+    protected $fillable = [
+
+        'user_id',
+        'question_id' ,
+        'read' ,
+        'answered',
+
+    ];
+
 
 
 }

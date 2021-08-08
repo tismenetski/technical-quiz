@@ -9,6 +9,7 @@ export default {
                currentQuestionaire : [],
                currentQuestionaireExists : false,
                questions : [],
+               answeredQuestions : [],
                loading : false,
                errors : null,
            }

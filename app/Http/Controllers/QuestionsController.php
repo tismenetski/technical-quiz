@@ -16,12 +16,16 @@ class QuestionsController extends Controller
     }
 
     public function answerQuestion(Request $request) {
-        $id = $request->get('id');
+        Log::debug('Entered answerQuestion Backend');
+        $id = $request->get('question_id');
+        $bool = $request->get('answer');
         $question = Question::find($id);
         $user = $request->user();
         $user_answer = UserAnswer::create([
             'user_id' => $user->id,
             'question_id' => $question->id,
+            'read' => true,
+            'answered' => $bool
         ]);
         $user_answer->save();
 
@@ -75,6 +79,10 @@ class QuestionsController extends Controller
 
         return response(['data' => $questions , 'message' =>'Serving A New Questionnaire'],200);
     }
+
+//    public function answerQuestion(Request $request){
+//
+//    }
 
 
 }

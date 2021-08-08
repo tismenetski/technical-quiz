@@ -49,7 +49,7 @@ export default {
         }
     },
     methods : {
-        checkAnswer() {
+      async checkAnswer() {
             let answers = this.selectedAnswersCurrentQuestion;
             console.log(answers);
             let arr = JSON.parse(this.currentQuestion.answers);
@@ -71,8 +71,13 @@ export default {
                         this.correct_answer = false;
                     }
                 }
-                this.nextQuestion();
+
             });
+          await  this.$store.dispatch('questions/answerQuestion',{
+              answer : this.correct_answer,
+              question_id : this.currentQuestion.id
+          })
+          this.nextQuestion();
 
         },
         nextQuestion() {
