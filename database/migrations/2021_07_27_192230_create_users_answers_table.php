@@ -8,7 +8,7 @@ class CreateUsersAnswersTable extends Migration
 {
     /**
      * Run the migrations.
-     *
+
      * @return void
      */
     public function up()
@@ -19,7 +19,7 @@ class CreateUsersAnswersTable extends Migration
             $table->bigInteger('user_id')->unsigned();
             $table->bigInteger('question_id')->unsigned();
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');;
-            $table->foreign('question_id')->references('id')->on('questions')->onDelete('cascade');;
+            $table->foreign('question_id')->references('id')->on('questions')->onDelete('cascade');
         });
     }
 

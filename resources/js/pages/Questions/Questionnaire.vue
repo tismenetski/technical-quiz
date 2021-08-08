@@ -15,6 +15,7 @@
 <!--        </el-card>-->
         <div class="question">
             <h3>Question Number {{currentQuestionNumber}}</h3>
+            <h4>Question Difficulty: {{currentQuestion.difficulty}}</h4>
             <p class="question-text">{{getCurrentQuestion}}</p>
 
             <div v-for="(answer,index) in extractAnswers" :key="index" class="answers">
@@ -24,7 +25,7 @@
                     </div>
             </div>
         </div>
-        <button class="submit-answer">Submit Answers</button>
+        <button class="submit-answer" v-on:click="checkAnswer">Submit Answers</button>
     </div>
     <div v-else>
         Please Create A New Questionnaire
@@ -38,12 +39,49 @@ export default {
     data() {
         return {
             questionnaire : [],
-            currentQuestionNumber : 1,
+            currentQuestionNumber : 0,
             questionnaireExists : false,
             currentQuestion : null,
+            currentQuestionAnswers: [],
             selectedAnswersCurrentQuestion : [],
+            correct_answer  : true,
 
         }
+    },
+    methods : {
+        checkAnswer() {
+            let answers = this.selectedAnswersCurrentQuestion;
+            console.log(answers);
+            let arr = JSON.parse(this.currentQuestion.answers);
+            let arr2 = JSON.parse(this.currentQuestion.correct_answers);
+            arr = Object.keys(arr).map((k) => arr[k]);
+            arr2 = Object.keys(arr2).map((k) => arr2[k]);
+            console.log(arr);
+            console.log(arr2);
+            answers = Object.keys(answers).map((k) => answers[k]);
+            console.log(answers);
+            answers.forEach(answer => {
+
+                // console.log(arr.contains(answer));
+                if (arr.includes(answer)){
+
+                    console.log(arr.indexOf(answer));
+                    let index = arr.indexOf(answer);
+                    if (arr2[index] === 'false') {
+                        this.correct_answer = false;
+                    }
+                }
+                this.nextQuestion();
+            });
+
+        },
+        nextQuestion() {
+            this.currentQuestion = this.questionnaire[++this.currentQuestionNumber];
+            this.correct_answer = true;
+            this.selectedAnswersCurrentQuestion = [];
+        }
+
+
     },
     created() {
         console.log('Questionnaire Created!!');
@@ -53,16 +91,19 @@ export default {
             this.currentQuestion  = this.questionnaire[0];
         }
 
+
     },
     computed : {
         getCurrentQuestion () {
             return this.currentQuestion.question
         },
         extractAnswers() {
+            console.log('Extracting answers from question...');
             console.log(JSON.parse(this.currentQuestion.answers));
             return JSON.parse(this.currentQuestion.answers);
+        },
 
-        }
+
     }
 }
 </script>
