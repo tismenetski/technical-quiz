@@ -4,7 +4,7 @@
     <el-checkbox :indeterminate="isIndeterminate" v-model="checkAll" @change="handleCheckAllChangeCategory">Check all</el-checkbox>
     <div style="margin: 15px 0;"></div>
     <el-checkbox-group v-model="checkedCategories" @change="handleCheckedCategoriesChange">
-        <el-checkbox v-for="category in categories" :label="category" :key="category">{{category}}</el-checkbox>
+        <el-checkbox v-for="category in categories" :label="category.name" :key="category.id">{{category.name}}</el-checkbox>
     </el-checkbox-group>
     </div>
     <div v-if="active===1">
@@ -30,7 +30,6 @@
 </template>
 
 <script>
-const categoryOptions = ['SQL', 'Linux', 'Code', 'Docker'];
 const difficultyOptions = ['Easy','Medium','Hard'];
 export default {
     data() {
@@ -39,7 +38,7 @@ export default {
             done: false,
             checkAll: false,
             checkedCategories: [],
-            categories: categoryOptions,
+            categories: [],
             checkedDifficulties: [],
             difficulties: difficultyOptions,
             isIndeterminate: true
@@ -94,18 +93,23 @@ export default {
             } catch (e) {
                 console.log(e);
             }
+
              this.$router.replace('/questionnaire');
 
 
         },
-        // computed: {
-        //     buttonText() {
-        //         return this.active < 2 ? 'Next Step' : 'Finish';
-        //     }
-        // }
+
+        async populateCategories() {
+            await this.$store.dispatch('categories/getCategoriesAction');
+            this.categories = this.$store.getters['categories/getCategories'];
+        }
+
     },
     watch : {
 
+    },
+    created() {
+        this.populateCategories();
     }
 }
 </script>

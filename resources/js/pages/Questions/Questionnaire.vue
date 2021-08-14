@@ -1,5 +1,5 @@
 <template>
-    <div v-if="questionnaireExists && questionnaire.length > 0">
+    <div class="questionnaire-main" v-if="questionnaireExists && questionnaire.length > 0">
 <!--    <el-tag>Question Number {{currentQuestionNumber}}</el-tag>-->
 <!--        <el-card class="box-card">-->
 <!--                <div class="card-header">-->
@@ -14,7 +14,7 @@
 <!--            </el-checkbox-group>-->
 <!--        </el-card>-->
         <div class="question">
-            <h3>Question Number {{currentQuestionNumber}}</h3>
+            <h3>Question Number {{currentQuestionNumber + 1}}</h3>
             <h4>Question Difficulty: {{currentQuestion.difficulty}}</h4>
             <p class="question-text">{{getCurrentQuestion}}</p>
 
@@ -75,7 +75,8 @@ export default {
             });
           await  this.$store.dispatch('questions/answerQuestion',{
               answer : this.correct_answer,
-              question_id : this.currentQuestion.id
+              question_id : this.currentQuestion.id,
+              category_id : this.currentQuestion.category_id
           })
           this.nextQuestion();
 
@@ -118,6 +119,14 @@ export default {
     display: flex;
     justify-content: space-between;
     align-items: center;
+}
+
+h3,h4 {
+    text-align: center;
+}
+
+.question {
+    margin-top: 65px;
 }
 
 .answer {

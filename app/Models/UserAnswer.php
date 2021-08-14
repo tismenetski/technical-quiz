@@ -16,11 +16,10 @@ class UserAnswer extends Model
 
         'user_id',
         'question_id' ,
+        'category_id',
         'read' ,
         'answered',
 
     ];
-
-
 
 }

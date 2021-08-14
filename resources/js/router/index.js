@@ -5,10 +5,6 @@ import About from '../pages/About';
 import Register from '../pages/Register';
 import Login from '../pages/Login';
 import Dashboard from '../pages/Dashboard';
-
-import Books from '../components/Books';
-import AddBook from '../components/AddBook';
-import EditBook from '../components/EditBook';
 import UnAnsweredQuestions from '../pages/Questions/UnAnsweredQuestions';
 import AnsweredQuestions from "../pages/Questions/AnsweredQuestions";
 import Questions from "../pages/Questions/Questions";
@@ -41,21 +37,6 @@ export const routes = [
         name: 'dashboard',
         path: '/dashboard',
         component: Dashboard
-    },
-    {
-        name: 'books',
-        path: '/books',
-        component: Books
-    },
-    {
-        name: 'addbook',
-        path: '/books/add',
-        component: AddBook
-    },
-    {
-        name: 'editbook',
-        path: '/books/edit/:id',
-        component: EditBook
     },
     {
         name: 'questions',

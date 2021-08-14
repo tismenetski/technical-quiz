@@ -1,13 +1,17 @@
 <template>
     <div>
-        <h1>Welcome {{ name }}</h1>
-
+        <h1 class="welcome-heading">Welcome {{ name }}</h1>
+            <categories-table></categories-table>
     </div>
 </template>
 
 <script>
+import CategoriesTable from "./Categories/CategoriesTable";
 export default {
     name: "Dashboard",
+    components : {
+        CategoriesTable
+    },
     data() {
         return {
             name: null,
@@ -26,3 +30,15 @@ export default {
     }
 }
 </script>
+
+
+<style scoped>
+
+.welcome-heading {
+    text-align: center;
+    padding: 10px 0;
+    color: var(--text-color);
+}
+
+
+</style>

@@ -24,6 +24,7 @@ class QuestionsController extends Controller
         $user_answer = UserAnswer::create([
             'user_id' => $user->id,
             'question_id' => $question->id,
+            'category_id' => $question->category_id,
             'read' => true,
             'answered' => $bool
         ]);
@@ -71,6 +72,10 @@ class QuestionsController extends Controller
 //        );
         $difficulties = $request->get('difficulties');
         $categories = $request->get('categories');
+//        $categories_id = [];
+//        foreach ($categories as $item) {
+//            $categories_id[] = $item['id'];
+//        }
         //todo make a field for number of questions so that it can also be dynamic
 
         //todo make a field for answered or not answered or both so that it can also be dynamic
