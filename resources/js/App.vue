@@ -191,6 +191,11 @@ export default {
     width: 100%;
     text-align: center;
     background-color: #7477bc;
+    color: #fff;
+}
+
+#footer h2 {
+    text-align: center;
 }
 
 #sidebar-left, #main{

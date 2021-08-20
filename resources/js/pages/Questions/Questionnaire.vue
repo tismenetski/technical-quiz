@@ -1,23 +1,12 @@
 <template>
     <div class="questionnaire-main" v-if="questionnaireExists && questionnaire.length > 0">
-<!--    <el-tag>Question Number {{currentQuestionNumber}}</el-tag>-->
-<!--        <el-card class="box-card">-->
-<!--                <div class="card-header">-->
-<!--                    <span>{{getCurrentQuestion}}</span>-->
-<!--                    <el-button class="button" type="text">Operation button</el-button>-->
-<!--                </div>-->
-<!--&lt;!&ndash;            <div v-for="o in 4" :key="o" class="text item">&ndash;&gt;-->
-<!--&lt;!&ndash;                {{'List item ' + o }}&ndash;&gt;-->
-<!--&lt;!&ndash;            </div>&ndash;&gt;-->
-<!--            <el-checkbox-group v-for="answer in currentQuestion.answers" v-model="answers">-->
-<!--                <el-checkbox :label="answer.text"></el-checkbox>-->
-<!--            </el-checkbox-group>-->
-<!--        </el-card>-->
         <div class="question">
-            <h3>Question Number {{currentQuestionNumber + 1}}</h3>
-            <h4>Question Difficulty: {{currentQuestion.difficulty}}</h4>
+            <h3>{{questionNumber}}</h3>
+            <h4>{{questionDifficulty}}</h4>
+            <h5>{{questionCategory}}</h5>
+            <hr>
             <p class="question-text">{{getCurrentQuestion}}</p>
-
+            <hr>
             <div v-for="(answer,index) in extractAnswers" :key="index" class="answers">
                     <div class="answer" v-if="answer!==null">
                         <input type="checkbox" :value="answer" v-model="selectedAnswersCurrentQuestion">
@@ -45,27 +34,22 @@ export default {
             currentQuestionAnswers: [],
             selectedAnswersCurrentQuestion : [],
             correct_answer  : true,
+            showToast : false,
 
         }
     },
     methods : {
       async checkAnswer() {
             let answers = this.selectedAnswersCurrentQuestion;
-            console.log(answers);
             let arr = JSON.parse(this.currentQuestion.answers);
             let arr2 = JSON.parse(this.currentQuestion.correct_answers);
             arr = Object.keys(arr).map((k) => arr[k]);
             arr2 = Object.keys(arr2).map((k) => arr2[k]);
-            console.log(arr);
-            console.log(arr2);
             answers = Object.keys(answers).map((k) => answers[k]);
-            console.log(answers);
             answers.forEach(answer => {
 
                 // console.log(arr.contains(answer));
                 if (arr.includes(answer)){
-
-                    console.log(arr.indexOf(answer));
                     let index = arr.indexOf(answer);
                     if (arr2[index] === 'false') {
                         this.correct_answer = false;
@@ -73,6 +57,26 @@ export default {
                 }
 
             });
+            if (this.correct_answer) {
+                this.$swal({
+                    toast : true,
+                    title : "Correct Answer",
+                    position : 'top-right',
+                    timer : 3000,
+                    timerProgressBar : true,
+                    icon: 'success'
+                })
+            }
+            else {
+                this.$swal({
+                    toast : true,
+                    title : "Wrong Answer",
+                    position : 'top-right',
+                    timer : 3000,
+                    timerProgressBar : true,
+                    icon: 'error'
+                })
+            }
           await  this.$store.dispatch('questions/answerQuestion',{
               answer : this.correct_answer,
               question_id : this.currentQuestion.id,
@@ -86,59 +90,57 @@ export default {
             this.correct_answer = true;
             this.selectedAnswersCurrentQuestion = [];
         }
-
-
     },
     created() {
-        console.log('Questionnaire Created!!');
         if (this.$store.getters['questions/getCurrentQuestionaireExists']){
             this.questionnaireExists = true;
             this.questionnaire = this.$store.getters['questions/getCurrentQuestionaire'].data;
             this.currentQuestion  = this.questionnaire[0];
         }
-
-
     },
     computed : {
         getCurrentQuestion () {
             return this.currentQuestion.question
         },
         extractAnswers() {
-            console.log('Extracting answers from question...');
-            console.log(JSON.parse(this.currentQuestion.answers));
             return JSON.parse(this.currentQuestion.answers);
         },
-
-
+        questionNumber() {
+            return  `Question Number: ${this.currentQuestionNumber +1} `;
+        },
+        questionDifficulty() {
+            return `Question Difficulty: ${this.currentQuestion.difficulty}`;
+        },
+        questionCategory() {
+            return `Question Category: ${this.currentQuestion.category}`;
+        }
     }
 }
 </script>
 
 <style scoped>
-.card-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
 
-h3,h4 {
+h3,h4,h5 {
     text-align: center;
+    color: #fff;
 }
 
 .question {
     margin-top: 65px;
+    text-align: center;
 }
 
 .answer {
     display: flex;
     flex-direction: row;
     align-items: center;
-    justify-content: flex-start;
+    justify-content:center;
 }
 
 .answer span {
     padding: 10px;
     font-size: 18px;
+    color: #fff;
 }
 
 .answer input {
@@ -147,33 +149,20 @@ h3,h4 {
 
 .question-text {
     font-size: 30px;
+    color: #fff;
 }
 
 .submit-answer {
-    width: 15vh;
-    height: 10vh;
-    background-color: #1f5684;
+    display: block;
+    width: 15vw;
+    height: 5vh;
+    background-color: #824275;
     color: #fff;
     padding: 20px;
-    border-radius: 5px;
-    margin: 0 auto;
-    line-height: normal;
-
-}
-
-.box-card {
-    width: 100%;
-}
-
-.text {
-    font-size: 14px;
-}
-
-.item {
-    margin-bottom: 18px;
-}
-
-.box-card {
-    width: 480px;
+    border-radius: 20px;
+    margin-left:auto;
+    margin-right: auto;
+    margin-top: 20px;
+    line-height: 0 !important;
 }
 </style>

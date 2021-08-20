@@ -14,8 +14,8 @@ export default {
     computed : {
         progress() {
             console.log(this.category);
-            if (this.category.read_questions > 0 ) {
-                return (this.category.answered_questions / this.category.questions_count) * 100 + '%';
+            if (this.category.read_questions > 0 && this.category.answered_questions > 0 ) {
+                return ((this.category.answered_questions / this.category.questions_count) * 100).toFixed(0) + '%';
             }
             return '0%';
         }

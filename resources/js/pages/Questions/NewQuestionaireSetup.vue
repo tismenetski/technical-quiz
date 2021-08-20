@@ -1,5 +1,5 @@
 <template>
-    <div v-if="active===0">
+    <div class="new-questionnaire-setup" v-if="active===0">
         <h1>Select Categories:</h1>
     <el-checkbox :indeterminate="isIndeterminate" v-model="checkAll" @change="handleCheckAllChangeCategory">Check all</el-checkbox>
     <div style="margin: 15px 0;"></div>
@@ -113,3 +113,11 @@ export default {
     }
 }
 </script>
+
+<style scoped>
+
+.new-questionnaire-setup {
+
+}
+
+</style>

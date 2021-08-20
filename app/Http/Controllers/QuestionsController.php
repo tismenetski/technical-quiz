@@ -38,8 +38,8 @@ class QuestionsController extends Controller
         Log::info('Hit Endpoint unAnsweredQuestions');
         $user = $request->user();
         $answered = UserAnswer::where('user_id','=',$user->id)->get();
-        Log::info($answered);
-        //dd($answered);
+        Log::info('Answered Questions: ' . print_r($answered,true));
+
         $questions = Question::where('id','!=',[$answered])->get();
         return response(['data' => $questions , 'message' =>'Not Answered Questions'],200);
     }
@@ -49,6 +49,7 @@ class QuestionsController extends Controller
         $user = $request->user();
         //dd($user);
         $answered = UserAnswer::query()->where('user_id','=',$user->id);
+        Log::info('Answered Questions: ' . print_r($answered,true));
 
         return response(['data' => $answered , 'message' =>'Answered Questions'],200);
     }
@@ -63,31 +64,17 @@ class QuestionsController extends Controller
     }
 
     public function createNewQuestionnaire(Request $request) {
-        Log::info('createNewQuestionnaire Endpoint!');
-//        Log::info($request->get('difficulties'));
-//        Log::info($request->get('categories'));
-        Log::info($request->get('data'));
-//        dd(
-//            'END'
-//        );
+
         $difficulties = $request->get('difficulties');
         $categories = $request->get('categories');
-//        $categories_id = [];
-//        foreach ($categories as $item) {
-//            $categories_id[] = $item['id'];
-//        }
+
         //todo make a field for number of questions so that it can also be dynamic
 
         //todo make a field for answered or not answered or both so that it can also be dynamic
 
         $questions = Question::whereIn('difficulty',$difficulties)->whereIn('category',$categories)->get();
 
+
         return response(['data' => $questions , 'message' =>'Serving A New Questionnaire'],200);
     }
-
-//    public function answerQuestion(Request $request){
-//
-//    }
-
-
 }
